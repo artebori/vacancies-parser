@@ -4,13 +4,14 @@
 import Foundation
 
 public class VacanciesParser {
-    private let service = VacanciesService()
     
-    public init() {
-        service.loadVacancies()
-    }
+    public init() {}
     
-    public func getVacanciesList() -> [ItemVacancies] {
-        service.getVacanciesList()
+    public func getVacanciesFromNetwork() async -> [ItemVacancies] {
+        return await withCheckedContinuation { cn in
+            NetworkManager.shared.getVacanciesFromNetwork { vacancies in
+                cn.resume(returning: vacancies)
+            }
+        }
     }
 }
