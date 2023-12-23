@@ -16,7 +16,7 @@ public struct Vacancies: Codable {
 // MARK: - Item
 public struct ItemVacancies: Codable {
     var id: Int?
-    var createdAt: Date?
+    var createdAt: String?
     var owner, position, about: String?
     var requirements, responsibilities, conditions: Conditions?
     var meta: [Meta]?
