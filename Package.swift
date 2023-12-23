@@ -14,6 +14,9 @@ let package = Package(
         .library(
             name: "VacanciesParser",
             targets: ["VacanciesParser"]),
+        .library(
+            name: "VacanciesService",
+            targets: ["Service/VacanciesService"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
