@@ -4,7 +4,9 @@
 import Foundation
 
 public class VacanciesParser {
-   public func testPrint() {
+    public init() {}
+    
+    public func testPrint() {
         NetworkManager.shared.getVacancies { str in
             print(str)
         }
