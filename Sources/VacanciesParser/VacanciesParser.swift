@@ -2,7 +2,7 @@
 // https://docs.swift.org/swift-book
 
 public struct VacanciesParser {
-    func test() {
+    func testPrint() {
         NetworkManager.shared.getVacancies { str in
             print(str)
         }
