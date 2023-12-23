@@ -4,7 +4,7 @@
 import Foundation
 
 //MARK: - Main entry
-public class VacanciesManager {
+public class VacanciesParserv {
     
     public init() {}
     
