@@ -7,7 +7,7 @@
 
 import Foundation
 
-class VacanciesService {
+public class VacanciesService {
     
     private var vacancies: [ItemVacancies] = []
    
@@ -19,13 +19,13 @@ class VacanciesService {
         }
     }
     
-    func loadVacancies() {
+    public func loadVacancies() {
         Task {
             vacancies = await getVacanciesFromNetwork()
         }
     }
     
-    func getVacanciesList() -> [ItemVacancies] {
+    public func getVacanciesList() -> [ItemVacancies] {
         vacancies
     }
 }
