@@ -4,12 +4,4 @@
 import Foundation
 
 public class VacanciesParser {
-    
-    public init() {
-        NetworkManager.shared.getVacancies()
-    }
-    
-    public func getVacancies() -> [ItemVacancies] {
-        NetworkManager.shared.getVacanciesList()
-    }
 }
