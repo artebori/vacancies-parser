@@ -17,31 +17,27 @@ class NetworkManager {
     //MARK: - Url Session
     private let session = URLSession.shared
     
-    func getVacanciesFromNetwork(completition: @escaping([ItemVacancies]) -> Void) {
+    func getVacanciesFromNetwork(completition: @escaping([ItemVacancy]) -> Void) async {
         guard let url = baseUrl else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        
-        
-        let task = session.dataTask(with: request) { data, response, error in
+            
+        do {
+            let (data, response) = try await session.data(from: url)
+            
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
-            if let data = data {
-                switch httpResponse.statusCode {
-                case 200:
-                    if let vacancies = try? JSONDecoder().decode(Vacancies.self, from: data) {
-                        if !(vacancies.items?.isEmpty ?? false) {
-                            completition(vacancies.items ?? [])
-                        }
-                    } else {
-                        print("Error of parse JSON")
+            switch httpResponse.statusCode {
+            case 200:
+                if let vacancies = try? JSONDecoder().decode(Vacancies.self, from: data) {
+                    if !(vacancies.items?.isEmpty ?? false) {
+                        completition(vacancies.items ?? [])
                     }
-                default: break
+                } else {
+                    print("Error of parse JSON")
                 }
+            default: break
             }
+        } catch (var error) {
+            print(error.localizedDescription)
         }
-        
-        task.resume()
     }
 }

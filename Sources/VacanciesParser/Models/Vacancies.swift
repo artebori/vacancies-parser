@@ -9,26 +9,26 @@ import Foundation
 
 // MARK: - Vacancies
 public struct Vacancies: Codable {
-    var count: Int?
-    var items: [ItemVacancies]?
+    let count: Int?
+    let items: [ItemVacancy]?
 }
 
 // MARK: - Item
-public struct ItemVacancies: Codable {
-    var id: Int?
-    var createdAt: String?
-    var owner, position, about: String?
-    var requirements, responsibilities, conditions: Conditions?
-    var meta: [Meta]?
+public struct ItemVacancy: Codable {
+    let id: Int?
+    let createdAt: String?
+    let owner, position, about: String?
+    let requirements, responsibilities, conditions: Condition?
+    let meta: [Meta]?
 }
 
 // MARK: - Conditions
-public struct Conditions: Codable {
-    var title, content: String?
+public struct Condition: Codable {
+    let title, content: String?
 }
 
 // MARK: - Meta
 public struct Meta: Codable {
-    var id: Int?
-    var type, value: String?
+    let id: Int?
+    let type, value: String?
 }
