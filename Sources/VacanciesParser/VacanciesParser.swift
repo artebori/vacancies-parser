@@ -11,7 +11,8 @@ public class VacanciesParser {
     public func getVacanciesList() async -> [ItemVacancies] {
         return await withCheckedContinuation { cn in
             NetworkManager.shared.getVacanciesFromNetwork { vacancies in
-                cn.resume(returning: vacancies)
+                let filteredVacancies = vacancies.filter { $0.position!.contains("iOS") }
+                cn.resume(returning: filteredVacancies)
             }
         }
     }
