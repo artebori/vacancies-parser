@@ -28,7 +28,7 @@ public struct Condition: Codable {
 }
 
 // MARK: - Meta
-public struct Meta: Codable {
+public struct Meta: Codable, Identifiable {
     public let id: Int?
     public let type, value: String?
 }
