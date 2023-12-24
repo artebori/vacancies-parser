@@ -14,8 +14,8 @@ public struct Vacancies: Codable {
 }
 
 // MARK: - Item
-public struct ItemVacancy: Codable {
-    let id: Int?
+public struct ItemVacancy: Codable, Identifiable {
+    public let id: Int?
     let createdAt: String?
     let owner, position, about: String?
     let requirements, responsibilities, conditions: Condition?
