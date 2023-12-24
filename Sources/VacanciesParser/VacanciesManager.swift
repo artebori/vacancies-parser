@@ -5,15 +5,15 @@ import Foundation
 
 //MARK: - Main entry
 public class VacanciesParser {
-    
+    private let networkManager = NetworkManager()
+
+    // MARK: - Initializers
     public init() {}
-    
-    public func getVacanciesList() async -> [ItemVacancy] {
-        var listVacancies: [ItemVacancy] = []
-        await NetworkManager.shared.getVacanciesFromNetwork { vacancies in
-            let filteredVacancies = vacancies.filter { $0.position?.contains("iOS") ?? false }
-            listVacancies = filteredVacancies
-        }
-        return listVacancies
+
+    // MARK: - Public Methods
+    public func getIOSVacancies() async -> [ItemVacancy] {
+        let vacancies = (try? await networkManager.getVacancies()) ?? []
+        let filteredVacancies = vacancies.filter { $0.position?.contains("iOS") ?? false }
+        return filteredVacancies
     }
 }
