@@ -9,7 +9,10 @@ import Foundation
 
 private extension URL {
     // TODO: Place the links in the environment
-    static let vacancyURL = baseURL.appendingPathComponent("api/vacancy?owner=career")
+    static let vacancyURL = baseURL
+        .appending(path: "api/vacancy")
+        .appending(queryItems: [URLQueryItem(name: "owner", value: "career")])
+
     static let baseURL = URL(string: "https://career.raiffeisen.ru/")!
 }
 
