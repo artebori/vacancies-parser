@@ -3,6 +3,11 @@
 
 import Foundation
 
+public enum CompanyTypeOfVacancies {
+    case raiffaisen
+    case vk
+}
+
 //MARK: - Main entry
 public class VacanciesParser {
     private let networkManager = NetworkManager()
@@ -11,8 +16,14 @@ public class VacanciesParser {
     public init() {}
 
     // MARK: - Public Methods
-    public func getIOSVacancies() async -> [ItemVacancy] {
-        let vacancies = (try? await networkManager.getVacancies()) ?? []
+    public func getIOSVacancies(companyType: CompanyTypeOfVacancies = .raiffaisen) async -> [ItemVacancy] {
+        var vacancies: [ItemVacancy] = []
+        switch companyType {
+        case .raiffaisen:
+            vacancies = (try? await networkManager.getRaifaisenVacancies()) ?? []
+        case .vk:
+            vacancies = (try? await networkManager.getVKVacancies()) ?? []
+        }
         let filteredVacancies = vacancies.filter { $0.position?.contains("iOS") ?? false }
         return filteredVacancies
     }
