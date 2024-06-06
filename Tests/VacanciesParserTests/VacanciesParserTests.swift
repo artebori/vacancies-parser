@@ -3,9 +3,9 @@ import XCTest
 
 final class VacanciesParserTests: XCTestCase {
     func testGetVacancies() async throws {
-       let test = VacanciesParser()
+       let parser = VacanciesParser()
         
-        let vacancies = await test.getIOSVacancies(companyType: .vk)
+        let vacancies = await parser.getIOSVacancies(companyType: .vk)
         print(vacancies)
     }
 }
