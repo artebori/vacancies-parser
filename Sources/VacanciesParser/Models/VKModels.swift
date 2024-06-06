@@ -32,7 +32,6 @@ struct InitialVacancy: Codable {
     let town: ProfArea?
     let tags: [ProfArea]?
     let remote, externalProgram: Bool?
-    let externalBonus: Int?
     let specialty: ProfArea?
 
     enum CodingKeys: String, CodingKey {
@@ -41,7 +40,6 @@ struct InitialVacancy: Codable {
         case group, title, town
         case tags, remote
         case externalProgram = "external_program"
-        case externalBonus = "external_bonus"
         case specialty
     }
 }
