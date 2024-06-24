@@ -7,57 +7,40 @@
 
 import Foundation
 
-// MARK: - VkVacancies
-struct VkVacancies: Codable {
-    let props: Props?
+// MARK: - VkModel
+struct VkModel: Codable {
+    let results: [Result]
 }
 
-// MARK: - Props
-struct Props: Codable {
-    let pageProps: PageProps?
-}
-
-// MARK: - PageProps
-struct PageProps: Codable {
-    let initialVacancies: [InitialVacancy]?
-    let initialTotalCount: Int?
-}
-
-// MARK: - InitialVacancy
-struct InitialVacancy: Codable {
-    let id: Int?
-    let profArea: ProfArea?
-    let group: Group?
-    let title: String?
-    let town: ProfArea?
-    let tags: [ProfArea]?
-    let remote, externalProgram: Bool?
-    let specialty: ProfArea?
+// MARK: - Result
+struct Result: Codable {
+    let profArea: ProfArea
+    let group: Group
+    let title: String
+    let town: ProfArea
+    let workFormat: String
+    let specialty: ProfArea
 
     enum CodingKeys: String, CodingKey {
-        case id
         case profArea = "prof_area"
         case group, title, town
-        case tags, remote
-        case externalProgram = "external_program"
+        case workFormat = "work_format"
         case specialty
     }
 }
 
 // MARK: - Group
 struct Group: Codable {
-    let id: Int?
-    let name: String?
-    let projectLogo: String?
+    let name: String
+    let projectLogo: String
 
     enum CodingKeys: String, CodingKey {
-        case id, name
+        case name
         case projectLogo = "project_logo"
     }
 }
 
 // MARK: - ProfArea
 struct ProfArea: Codable {
-    let id: Int?
-    let name: String?
+    let name: String
 }
