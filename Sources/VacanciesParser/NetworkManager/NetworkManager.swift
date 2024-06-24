@@ -18,7 +18,7 @@ private extension URL {
         .appending(queryItems: [URLQueryItem(name: "tags", value: "2243")])
 
     static let baseRaifURL = URL(string: "https://career.raiffeisen.ru/")!
-    static let baseVKUrl = URL(string: "https://team.vk.company/vacancy/")!
+    static let baseVKUrl = URL(string: "https://team.vk.company/career/api/v2/vacancies/")!
 }
 
 //MARK: - Main logic service
@@ -38,18 +38,19 @@ final class NetworkManager {
     }
     
     func getVKVacancies() async throws -> [ItemVacancy] {
-        var returnedVacancies: [ItemVacancy] = []
+        var vacancies: [ItemVacancy] = []
         let (data, _) = try await session.data(from: .vacancyVKUrl)
-        if let htmlString = String(data: data, encoding: .utf8) {
-            guard let json = parseHTMLandExtractJSON(from: htmlString) else { return [] }
-            let vacancies = try JSONDecoder().decode(VkVacancies.self, from: json)
-            let allVkVaccancies = vacancies.props?.pageProps?.initialVacancies ?? []
-            allVkVaccancies.forEach { vacancy in
-                returnedVacancies.append(ItemVacancy(id: Int.random(in: 0...9000), createdAt: Date.now.ISO8601Format(), owner: "", position: vacancy.title ?? "", about: vacancy.specialty?.name ?? "", requirements: Condition(title: "", content: ""), responsibilities: Condition(title: "", content: ""), conditions: Condition(title: "", content: ""), meta: [Meta(id: Int.random(in: 0...9000), type: "", value: "Тестовая мета для вк")]))
-            }
-            return returnedVacancies
+        let vacanciesVkModel = try JSONDecoder().decode(VkModel.self, from: data)
+        
+        vacanciesVkModel.results.forEach { vacancy in
+            vacancies.append(ItemVacancy(id: Int.random(in: 0..<10000), createdAt: Date.now.ISO8601Format(), owner: "", position: vacancy.title, about: "", requirements: nil, responsibilities: nil, conditions: nil, meta: [
+                Meta(id: nil, type: "", value: vacancy.workFormat),
+                Meta(id: nil, type: "", value: vacancy.profArea.name),
+                Meta(id: nil, type: "", value: vacancy.specialty.name)
+            ]))
         }
-        return returnedVacancies
+        
+        return vacancies
     }
     
 }

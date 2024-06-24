@@ -6,6 +6,9 @@ final class VacanciesParserTests: XCTestCase {
        let parser = VacanciesParser()
         
         let vacancies = await parser.getIOSVacancies(companyType: .vk)
+        
         print(vacancies)
+        
+        XCTAssert(vacancies.count > 0)
     }
 }
