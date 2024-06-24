@@ -49,7 +49,6 @@ final class NetworkManager {
                 Meta(id: nil, type: "", value: vacancy.specialty.name)
             ]))
         }
-        
         return vacancies
     }
     
